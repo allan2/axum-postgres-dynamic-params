@@ -18,8 +18,8 @@ async fn main() -> Result<(), Box<dyn error::Error>> {
     let pool = Pool::builder().build(manager).await?;
 
     let app = Router::new()
-        .route("/1", post(insert_by_loop))
-        .route("/2", post(insert_multirow))
+        .route("/1", post(insert_multirow))
+        .route("/2", post(insert_one_by_one))
         .with_state(pool);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
@@ -52,7 +52,7 @@ async fn insert_multirow(DbConn(conn): DbConn) -> Result<impl IntoResponse, Stat
 }
 
 /// Inserts records one at a time.
-async fn insert_by_loop(DbConn(conn): DbConn) -> Result<impl IntoResponse, StatusCode> {
+async fn insert_one_by_one(DbConn(conn): DbConn) -> Result<impl IntoResponse, StatusCode> {
     for i in 1..=2 {
         conn.execute("INSERT INTO foo (a, b) VALUES ($1, $2)", &[&i, &"s"])
             .await
