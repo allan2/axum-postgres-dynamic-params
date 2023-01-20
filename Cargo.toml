@@ -2,6 +2,7 @@
 name = "axum-postgres-dynamic-params"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
 publish = false
 
 
@@ -11,4 +12,3 @@ axum = { git = "https://github.com/tokio-rs/axum" }
 tokio-postgres = "0.7.7"
 bb8 = "0.8"
 bb8-postgres = "0.8.1"
-axum-macros = { git = "https://github.com/tokio-rs/axum" }
