@@ -35,7 +35,7 @@ async fn main() -> Result<(), Box<dyn error::Error>> {
 async fn insert_multirow_once(DbConn(conn): DbConn) -> Result<impl IntoResponse, StatusCode> {
     let statement = "INSERT INTO foo (a, b) VALUES ($1, $2), ($3, $4)";
 
-    let mut params = Vec::<Box<dyn ToSql + Sync>>::with_capacity(6);
+    let mut params = Vec::<Box<dyn ToSql + Sync>>::with_capacity(4);
 
     for i in 1..=2 {
         params.push(Box::new(i));
